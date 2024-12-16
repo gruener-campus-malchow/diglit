@@ -1,0 +1,5 @@
+# THIS FILE IS AUTOMATICALLY DEPLOYED, DO NOT EDIT
+# configure cronjobs in /etc/cron.d/diglit3
+# more info: https://gcm.schule/diglit3
+30 7 * * 1-5 root /usr/sbin/service diglit3 start
+30 15 * * 1-5 root /usr/sbin/service diglit3 stop

@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+body {
+	background: black;
+	color: white;
+	font-family: sans-serif;
+}
+
+body.cracked::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: 900;
+	background: url('/cracked-screen.png');
+	background-size: cover;
+	background-position: center;
+	pointer-events: none;
+}
+</style>
+
+<script type="module">
+import { token } from '/token.js'
+
+window.addEventListener('error', () => document.body.classList.add('cracked'))
+
+const init_fetch = () => fetch('https://gcm.schule/vertretungsplan/scroll.js')
+	.then(response => response.blob())
+	.then(blob => {
+		const s = document.createElement('script')
+		s.src = URL.createObjectURL(blob)
+		document.head.append(s)
+		document.body.classList.remove('cracked')
+		s.addEventListener('load', () => vp.init())
+	})
+	.catch(err => {
+		document.body.innerHTML = `Kein Vertretungsplan verfügbar`
+		setTimeout(init_fetch, 60000)
+	})
+init_fetch()
+</script>
+
+loading…
+
